@@ -1,0 +1,454 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ============================================
+   CUSTOM PROPERTIES
+   ============================================ */
+:root {
+  --color-bg: #faf9f7;
+  --color-surface: #ffffff;
+  --color-text: #1c1c1c;
+  --color-text-muted: #6b6b6b;
+  --color-text-light: #9a9a9a;
+  --color-border: #e8e2db;
+
+  --accent-pacifica: #1a6b8a;
+  --accent-sf: #c94a1e;
+  --accent-norway: #2c4a7c;
+
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+  --space-12: 5rem;
+  --space-16: 7rem;
+
+  --max-width: 1200px;
+  --content-width: 800px;
+  --nav-height: 64px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --transition: 0.2s ease;
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-body); background-color: var(--color-bg); color: var(--color-text); line-height: 1.6; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1, h2, h3, h4, h5 { font-family: var(--font-heading); line-height: 1.15; font-weight: 500; }
+h1 { font-size: clamp(2.5rem, 6vw, 5rem); }
+h2 { font-size: clamp(1.8rem, 4vw, 3rem); }
+h3 { font-size: clamp(1.3rem, 3vw, 2rem); }
+h4 { font-size: 1.25rem; font-weight: 500; }
+p { font-size: 1rem; line-height: 1.75; color: var(--color-text-muted); }
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-6); }
+.container--narrow { max-width: var(--content-width); margin: 0 auto; padding: 0 var(--space-6); }
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  background: rgba(250, 249, 247, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+.nav__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav__logo {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: opacity var(--transition);
+}
+.nav__logo:hover { opacity: 0.6; }
+.nav__links { display: flex; gap: var(--space-6); list-style: none; }
+.nav__links a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  transition: color var(--transition);
+}
+.nav__links a:hover,
+.nav__links a.active { color: var(--color-text); }
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--nav-height);
+}
+.hero--home    { background: linear-gradient(145deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%); color: white; }
+.hero--travel  { background: linear-gradient(145deg, #1a1a2e 0%, #2d2d4e 100%); color: white; min-height: 50vh; }
+.hero--pacifica { background: linear-gradient(145deg, #0d3b52 0%, #1a6b8a 50%, #2d8fa8 100%); color: white; }
+.hero--sf       { background: linear-gradient(145deg, #3d1a0a 0%, #8b2e0d 40%, #c94a1e 100%); color: white; }
+.hero--norway   { background: linear-gradient(145deg, #0a1628 0%, #1a2f52 40%, #2c4a7c 100%); color: white; }
+
+.hero__content {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6);
+  width: 100%;
+}
+.hero__eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: var(--space-4);
+}
+.hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: var(--space-5);
+  max-width: 14ch;
+}
+.hero__title em { font-style: italic; opacity: 0.7; }
+.hero__subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.7;
+  opacity: 0.7;
+  max-width: 48ch;
+  font-weight: 300;
+  color: white;
+  margin-bottom: var(--space-8);
+}
+.hero__breadcrumb {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin-bottom: var(--space-3);
+}
+.hero__breadcrumb a { opacity: 0.8; transition: opacity var(--transition); }
+.hero__breadcrumb a:hover { opacity: 1; }
+.hero__breadcrumb span { margin: 0 var(--space-2); }
+
+/* ============================================
+   DESTINATION CARDS (Travel Hub)
+   ============================================ */
+.destinations { padding: var(--space-12) 0; }
+.destinations__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+.dest-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  position: relative;
+  cursor: pointer;
+  display: block;
+}
+.dest-card--pacifica { background: linear-gradient(160deg, #0d3b52, #2d8fa8); }
+.dest-card--sf       { background: linear-gradient(160deg, #3d1a0a, #c94a1e); }
+.dest-card--norway   { background: linear-gradient(160deg, #0a1628, #2c4a7c); }
+
+.dest-card__overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.25);
+  transition: opacity var(--transition);
+  opacity: 0.4;
+}
+.dest-card:hover .dest-card__overlay { opacity: 0.7; }
+.dest-card:hover .dest-card__arrow { transform: translateX(5px); }
+
+.dest-card__content {
+  position: absolute; inset: 0;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: white;
+}
+.dest-card__region {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: var(--space-2);
+}
+.dest-card__name {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  font-weight: 500;
+  line-height: 1.1;
+  margin-bottom: var(--space-3);
+}
+.dest-card__desc {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  opacity: 0.7;
+  color: white;
+  margin-bottom: var(--space-4);
+}
+.dest-card__arrow { font-size: 1.4rem; transition: transform var(--transition); }
+
+/* ============================================
+   CONTENT SECTIONS
+   ============================================ */
+.content-section { padding: var(--space-12) 0; }
+.content-section + .content-section { border-top: 1px solid var(--color-border); }
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+.section-header__number {
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  font-weight: 400;
+  color: var(--color-border);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.section-header__text h2 { margin-bottom: var(--space-2); }
+.section-header__text p { font-size: 0.95rem; }
+
+/* ============================================
+   PLACE CARDS
+   ============================================ */
+.places-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+.place-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+.place-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+.place-card__tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-3);
+  background: var(--tag-bg, #f0ece7);
+  color: var(--tag-color, #6b6b6b);
+}
+.place-card__name {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
+}
+.place-card__desc {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+/* Tag color variants */
+.tag--food     { --tag-bg: #fef3e8; --tag-color: #b5591a; }
+.tag--coffee   { --tag-bg: #f5efe8; --tag-color: #8b6039; }
+.tag--hike     { --tag-bg: #e8f4ee; --tag-color: #2e7d52; }
+.tag--activity { --tag-bg: #e8f0fe; --tag-color: #2a56c6; }
+.tag--bar      { --tag-bg: #f3e8fd; --tag-color: #7b2fa0; }
+.tag--museum   { --tag-bg: #fde8e8; --tag-color: #c42929; }
+.tag--nature   { --tag-bg: #e8f4ee; --tag-color: #2e7d52; }
+.tag--tip      { --tag-bg: #fffbe8; --tag-color: #9b7d1a; }
+.tag--fjord    { --tag-bg: #e8f0f8; --tag-color: #1a4a7c; }
+.tag--ski      { --tag-bg: #eef4ff; --tag-color: #2953c4; }
+.tag--seafood  { --tag-bg: #e8f6f8; --tag-color: #1a6b78; }
+.tag--sight    { --tag-bg: #fde8f5; --tag-color: #a0246b; }
+.tag--region   { --tag-bg: #f0f8e8; --tag-color: #4a7c1a; }
+
+/* ============================================
+   INTRO SECTION
+   ============================================ */
+.intro-section {
+  padding: var(--space-12) 0;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+.intro-section p { font-size: 1.1rem; line-height: 1.9; color: var(--color-text-muted); }
+.intro-section p + p { margin-top: var(--space-4); }
+
+/* ============================================
+   PULL QUOTE
+   ============================================ */
+.pull-quote {
+  margin: var(--space-10) 0;
+  padding: var(--space-8) var(--space-10);
+  position: relative;
+}
+.pull-quote::before {
+  content: '\201C';
+  font-family: var(--font-heading);
+  font-size: 8rem;
+  line-height: 0.7;
+  color: var(--color-border);
+  position: absolute;
+  top: var(--space-5);
+  left: var(--space-5);
+}
+.pull-quote p {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-style: italic;
+  color: var(--color-text);
+  line-height: 1.45;
+  padding-left: var(--space-8);
+}
+
+/* ============================================
+   TIPS LIST
+   ============================================ */
+.tips-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-4); }
+.tips-list li { display: flex; gap: var(--space-4); align-items: flex-start; }
+.tips-list__icon { font-size: 1rem; flex-shrink: 0; margin-top: 3px; color: var(--color-text-muted); }
+.tips-list__text { font-size: 0.9375rem; line-height: 1.7; color: var(--color-text-muted); }
+.tips-list__text strong { color: var(--color-text); font-weight: 600; }
+
+/* ============================================
+   HOMEPAGE
+   ============================================ */
+.home-section { padding: var(--space-12) 0; }
+.home-section--alt { background: var(--color-surface); }
+.home-section__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); align-items: center; }
+.home-section__label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+.home-section__title { font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: var(--space-4); }
+.home-section__desc { font-size: 1.05rem; line-height: 1.8; margin-bottom: var(--space-5); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.btn--primary { background: var(--color-text); color: var(--color-bg); }
+.btn--primary:hover { background: #333; transform: translateY(-1px); }
+.btn--outline { border: 1px solid var(--color-border); color: var(--color-text); }
+.btn--outline:hover { border-color: var(--color-text); background: var(--color-text); color: var(--color-bg); }
+
+.home-destinations-preview { display: grid; grid-template-columns: 1fr; gap: var(--space-3); }
+.dest-preview-card {
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--color-border);
+  transition: all var(--transition);
+}
+.dest-preview-card:hover { border-color: var(--color-text); box-shadow: var(--shadow-sm); }
+.dest-preview-card__region { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-text-muted); }
+.dest-preview-card__name { font-family: var(--font-heading); font-size: 1.4rem; }
+.dest-preview-card__dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot--pacifica { background: var(--accent-pacifica); }
+.dot--sf       { background: var(--accent-sf); }
+.dot--norway   { background: var(--accent-norway); }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  background: var(--color-text);
+  color: rgba(255,255,255,0.5);
+  padding: var(--space-8) 0;
+  margin-top: var(--space-16);
+}
+.footer__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer__logo { font-family: var(--font-heading); font-size: 1.3rem; color: white; }
+.footer__links { display: flex; gap: var(--space-5); list-style: none; }
+.footer__links a { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color var(--transition); }
+.footer__links a:hover { color: white; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .destinations__grid { grid-template-columns: 1fr; }
+  .dest-card { aspect-ratio: 16/9; }
+  .home-section__grid { grid-template-columns: 1fr; gap: var(--space-6); }
+}
+@media (max-width: 640px) {
+  .pull-quote { padding: var(--space-6) var(--space-5); }
+  .pull-quote::before { font-size: 5rem; }
+  .pull-quote p { padding-left: var(--space-5); }
+  .footer__inner { flex-direction: column; gap: var(--space-4); text-align: center; }
+  .section-header { flex-direction: column; gap: var(--space-2); }
+  .section-header__number { font-size: 2.5rem; }
+  .places-grid { grid-template-columns: 1fr; }
+}
