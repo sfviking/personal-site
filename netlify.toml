@@ -1,0 +1,15 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "https://sfviking.github.io/*"
+  to = "https://www.oeyo.net/:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
