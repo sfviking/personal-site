@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes | Eirik</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">Eirik</a>
+      <ul class="nav__links">
+        <li><a href="travel/index.html">Travel</a></li>
+        <li><a href="notes.html" class="active">Notes</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero hero--notes">
+      <div class="hero__content">
+        <p class="hero__eyebrow">Notes</p>
+        <h1 class="hero__title">Things I've <em>figured out</em></h1>
+        <p class="hero__subtitle">
+          Small things I worked out, mostly the hard way &mdash; saved here in case they help someone else.
+          Audio rabbit holes, mountain bike epiphanies, the occasional AI-pairing trick.
+        </p>
+      </div>
+    </section>
+
+    <div class="container--narrow">
+      <div class="intro-section">
+        <p>
+          A running list. Some of these took me years to figure out, some took an afternoon and a good
+          conversation with Claude. The categories will grow as I add more.
+        </p>
+      </div>
+    </div>
+
+    <section class="content-section">
+      <div class="container--narrow">
+        <div class="section-header">
+          <span class="section-header__number">01</span>
+          <div class="section-header__text">
+            <span class="note-tag note-tag--audio">Audio</span>
+            <h2>Adding a subwoofer to the Apple Studio Display</h2>
+          </div>
+        </div>
+
+        <div class="note-entry">
+          <p>
+            Here's a thing that bugged me for a long time. My Apple Studio Display has six speakers built in,
+            but the bass is &mdash; for obvious physical reasons &mdash; thin. I'd already paid for those speakers
+            and didn't want to add a separate speaker system. I just wanted to plug in a subwoofer to fill in the low end.
+          </p>
+          <p>
+            It is not, it turns out, straightforward. I tried splitting audio with macOS's built-in
+            Audio MIDI Setup years ago and could never get it to work cleanly. This time I asked
+            <strong>Claude</strong> to figure it out with me &mdash; and I now have a functioning setup
+            with the Studio Display handling mids and highs and a sub doing the low end.
+          </p>
+
+          <h3>The setup</h3>
+          <p>
+            The goal: send everything to the main speakers, and also send a copy to a subwoofer plugged into
+            the headphone jack. Let the subwoofer's built-in crossover handle the bass filtering &mdash; no
+            software EQ required.
+          </p>
+          <p>
+            Tool: <a href="https://rogueamoeba.com/loopback/" target="_blank" rel="noopener noreferrer">Loopback by Rogue Amoeba</a>
+            (about $99, and worth it).
+          </p>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">1.</span>
+              <span class="tips-list__text">Create a virtual audio device in Loopback. I called mine <code>Loopback Audio</code>.</span>
+            </li>
+            <li>
+              <span class="tips-list__icon">2.</span>
+              <span class="tips-list__text">Add two monitors to it: the Studio Display speakers, and the 3.5mm headphone jack (where the subwoofer is plugged in).</span>
+            </li>
+            <li>
+              <span class="tips-list__icon">3.</span>
+              <span class="tips-list__text">In <strong>System Settings &rarr; Sound</strong>, set <code>Loopback Audio</code> as the system output.</span>
+            </li>
+            <li>
+              <span class="tips-list__icon">4.</span>
+              <span class="tips-list__text">That's it. The subwoofer's hardware crossover handles the rest.</span>
+            </li>
+          </ul>
+          <p>
+            Because I sometimes work with the Studio Display and sometimes from the laptop alone, I made
+            a second Loopback device called <code>Studio Display + Sub</code> that uses the Studio Display
+            speakers and the headphone jack. I switch between the two in Sound settings depending on what's plugged in.
+          </p>
+
+          <h3>Two gotchas that almost made me give up</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong>A constant hum from the headphone jack.</strong> Turned out to be a ground loop from
+                the laptop charger &mdash; running on battery confirmed it. Fix: a $10
+                <a href="https://www.amazon.com/s?k=3.5mm+ground+loop+isolator" target="_blank" rel="noopener noreferrer">3.5mm ground loop isolator</a>
+                from Amazon. Done.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong>Max volume felt weak.</strong> Loopback's per-monitor sliders had defaulted to 31&ndash;55%.
+                Expanding <strong>Options</strong> on each monitor and pulling the sliders to 100% fixed it.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__logo">Eirik</span>
+      <ul class="footer__links">
+        <li><a href="travel/index.html">Travel</a></li>
+        <li><a href="notes.html">Notes</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
