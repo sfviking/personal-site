@@ -43,13 +43,13 @@
       </div>
     </div>
 
-    <section class="content-section">
+    <section class="content-section" id="adding-subwoofer">
       <div class="container--narrow">
         <div class="section-header">
           <span class="section-header__number">01</span>
           <div class="section-header__text">
             <span class="note-tag note-tag--audio">Audio</span>
-            <h2>Adding a subwoofer to the Apple Studio Display</h2>
+            <h2>Adding a subwoofer to the Apple Studio Display<a class="permalink" href="#adding-subwoofer" aria-label="Permalink to this note">#</a></h2>
           </div>
         </div>
 
@@ -135,6 +135,23 @@
       </ul>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('.permalink');
+      if (!link) return;
+      e.preventDefault();
+      var hash = link.getAttribute('href');
+      history.replaceState(null, '', hash);
+      var target = document.querySelector(hash);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(location.href).catch(function () {});
+      }
+      link.classList.add('permalink--copied');
+      setTimeout(function () { link.classList.remove('permalink--copied'); }, 1400);
+    });
+  </script>
 
 </body>
 </html>
