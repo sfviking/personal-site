@@ -48,7 +48,7 @@
    RESET & BASE
    ============================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+html { font-size: 16px; scroll-behavior: smooth; scroll-padding-top: var(--nav-height); -webkit-font-smoothing: antialiased; }
 body { font-family: var(--font-body); background-color: var(--color-bg); color: var(--color-text); line-height: 1.6; }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -344,6 +344,42 @@ p { font-size: 1rem; line-height: 1.75; color: var(--color-text-muted); }
 }
 .section-header__text h2 { margin-bottom: var(--space-2); }
 .section-header__text p { font-size: 0.95rem; }
+
+.permalink {
+  display: inline-block;
+  margin-left: 0.4em;
+  font-family: var(--font-body);
+  font-size: 0.6em;
+  font-weight: 400;
+  color: var(--color-text-light);
+  border-bottom: none;
+  vertical-align: middle;
+  opacity: 0;
+  transition: opacity var(--transition), color var(--transition);
+  position: relative;
+}
+.permalink:hover { color: var(--color-text-muted); }
+h2:hover .permalink,
+.permalink:focus-visible { opacity: 1; }
+.permalink:focus-visible { outline: none; color: var(--color-text); }
+.permalink--copied { opacity: 1; color: var(--color-text); }
+.permalink--copied::after {
+  content: "Link copied";
+  position: absolute;
+  left: 50%;
+  top: -1.6em;
+  transform: translateX(-50%);
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+}
+@media (hover: none) {
+  .permalink { opacity: 0.5; }
+}
 
 /* ============================================
    PLACE CARDS
