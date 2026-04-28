@@ -688,6 +688,12 @@ h2:hover .permalink,
   border: 1px solid var(--color-border);
   color: var(--color-text-muted);
 }
+.project-card__note {
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: var(--color-text-light);
+  margin-top: var(--space-4);
+}
 @media (max-width: 640px) {
   .project-card__header { flex-direction: column; }
   .project-card { padding: var(--space-5); }
