@@ -1,13 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="E">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ø">
   <rect width="64" height="64" rx="10" fill="#1c1c1c"/>
-  <g fill="#faf9f7">
-    <!-- vertical spine -->
-    <rect x="17" y="14" width="7" height="36"/>
-    <!-- top arm -->
-    <rect x="17" y="14" width="28" height="7"/>
-    <!-- middle arm (slightly shorter, classic E proportion) -->
-    <rect x="17" y="29" width="22" height="6"/>
-    <!-- bottom arm (slightly longer for serif feel) -->
-    <rect x="17" y="43" width="30" height="7"/>
-  </g>
+  <!-- O ring: outer circle minus inner circle (even-odd fill makes the inside transparent) -->
+  <path fill="#faf9f7" fill-rule="evenodd"
+        d="M 32 13 A 19 19 0 1 1 32 51 A 19 19 0 1 1 32 13 Z
+           M 32 21 A 11 11 0 1 0 32 43 A 11 11 0 1 0 32 21 Z"/>
+  <!-- Slash: parallelogram from lower-left to upper-right, extends slightly past the ring -->
+  <polygon points="13,49 18,54 51,15 46,10" fill="#faf9f7"/>
 </svg>
