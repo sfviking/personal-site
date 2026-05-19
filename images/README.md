@@ -13,6 +13,7 @@ If a file is missing, the Unsplash fallback shows automatically — the site nev
 | Norway | `norway.jpg` | `travel/norway.html` |
 | About | `about.jpg` | `about.html` |
 | Notes | `notes.jpg` | `notes.html` |
+| Study | `study.jpg` | `study.html` |
 
 ## Recommended export settings
 

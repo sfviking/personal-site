@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Guide | Eirik</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">Eirik</a>
+      <ul class="nav__links">
+        <li><a href="travel/index.html">Travel</a></li>
+        <li><a href="notes.html">Notes</a></li>
+        <li><a href="study.html" class="active">Study</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero hero--study">
+      <div class="hero__content">
+        <p class="hero__eyebrow">Study Guide</p>
+        <h1 class="hero__title">SRE &amp; PE in <em>2026</em></h1>
+        <p class="hero__subtitle">
+          What I would study if I were preparing for an SRE or Production Engineering interview today.
+          Curated reading, opinions on what matters most, and the operational AI skills that are
+          quietly becoming the biggest hiring lever in the field.
+        </p>
+      </div>
+    </section>
+
+    <div class="container--narrow">
+      <div class="intro-section">
+        <p>
+          This is a working document. I keep it updated for friends and colleagues who ask "what should
+          I read?" Each section opens with a short opinion on what actually matters in that area, then
+          a tight list of resources I trust. The biggest rewrite in this round is the AI section: most
+          SRE study guides on the internet treat AI as "knows how to call an LLM API," and that bar is
+          now far too low.
+        </p>
+        <p>
+          Read it top to bottom or jump to the section you need. Every heading is its own URL, so
+          sharing a single section is one click on the <code>#</code> next to the title.
+        </p>
+      </div>
+
+      <nav class="study-toc" aria-label="Sections">
+        <ol>
+          <li><a href="#foundations"><span>01</span> Foundations</a></li>
+          <li><a href="#production-systems"><span>02</span> Production Systems</a></li>
+          <li><a href="#observability"><span>03</span> Observability</a></li>
+          <li><a href="#platform-engineering"><span>04</span> Platform Engineering</a></li>
+          <li><a href="#ai-ml-ops"><span>05</span> AI &amp; ML Ops</a></li>
+          <li><a href="#interview-strategy"><span>06</span> Interview Strategy</a></li>
+        </ol>
+      </nav>
+    </div>
+
+    <section class="content-section" id="foundations">
+      <div class="container--narrow">
+        <div class="section-header">
+          <span class="section-header__number">01</span>
+          <div class="section-header__text">
+            <span class="note-tag note-tag--foundations">Foundations</span>
+            <h2>Foundations<a class="permalink" href="#foundations" aria-label="Permalink to this section">#</a></h2>
+          </div>
+        </div>
+
+        <div class="note-entry">
+          <p>
+            Foundations don't go out of date. Every SRE skill above this layer assumes you can read a
+            kernel stack trace, reason about TCP retransmits, and write a small program that does what
+            you meant. If you skip this layer, every other section becomes harder than it needs to be.
+          </p>
+          <p>
+            Pick one systems language deeply (Go is the modern default for new infrastructure code;
+            Python remains the universal glue for tooling and automation) and learn enough of the other
+            to be useful. Spend more time on Linux than feels reasonable. Networking is the most
+            under-studied area among candidates I've talked to: knowing why DNS is slow today, why a
+            TLS handshake added 200ms, or why packets are being dropped at the load balancer separates
+            people who guess from people who diagnose.
+          </p>
+
+          <h3>Linux &amp; systems</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://linuxjourney.com/" target="_blank" rel="noopener noreferrer">Linux Journey</a>.</strong>
+                Free, well-paced introduction. Don't stop at "Grasshopper" tier; the "Networking Nomad" and "Process Hacker" sections are where the real value lives.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.brendangregg.com/systems-performance-2nd-edition-book.html" target="_blank" rel="noopener noreferrer">Systems Performance, 2nd ed.</a> (Brendan Gregg).</strong>
+                The canonical reference. You won't read it cover to cover, but you'll keep coming back to it. The methodology chapters (USE method, RED method) alone are worth the cover price.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://csapp.cs.cmu.edu/" target="_blank" rel="noopener noreferrer">Computer Systems: A Programmer's Perspective</a> (Bryant &amp; O'Hallaron).</strong>
+                If you skipped systems in school, the labs in chapters 6 to 10 will close the gap faster than anything else I've found.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.youtube.com/watch?v=H4vMcD7zKM0" target="_blank" rel="noopener noreferrer">"Linux Performance Tools" by Brendan Gregg</a>.</strong>
+                Forty minutes that will give you a real mental map of where to look when a box is slow.
+              </span>
+            </li>
+          </ul>
+
+          <h3>Programming languages</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://go.dev/tour/" target="_blank" rel="noopener noreferrer">A Tour of Go</a>.</strong>
+                One afternoon. Then read <a href="https://go.dev/doc/effective_go" target="_blank" rel="noopener noreferrer">Effective Go</a> and write something real (a small CLI, a metrics scraper, a tiny proxy).
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.manning.com/books/100-go-mistakes-and-how-to-avoid-them" target="_blank" rel="noopener noreferrer">100 Go Mistakes and How to Avoid Them</a> (Teiva Harsanyi).</strong>
+                The book that turns a beginner into someone whose PRs senior engineers approve quickly. Goroutine leaks, context propagation, slice-sharing footguns.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.oreilly.com/library/view/fluent-python-3rd/9781098171995/" target="_blank" rel="noopener noreferrer">Fluent Python, 3rd ed.</a> (Luciano Ramalho).</strong>
+                Bridges the gap from "I can write Python" to "I write Python that other people enjoy reading." Type hints, dataclasses, async patterns.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://docs.pytest.org/" target="_blank" rel="noopener noreferrer">pytest</a> and <a href="https://mypy.readthedocs.io/" target="_blank" rel="noopener noreferrer">mypy</a>, in anger.</strong>
+                Most Python interview questions are actually questions about how disciplined you are. Bring tests and types to every code sample.
+              </span>
+            </li>
+          </ul>
+
+          <h3>Networking</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://beej.us/guide/bgnet/" target="_blank" rel="noopener noreferrer">Beej's Guide to Network Programming</a>.</strong>
+                Free, friendly, and the fastest way to internalize how sockets really work.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://hpbn.co/" target="_blank" rel="noopener noreferrer">High Performance Browser Networking</a> (Ilya Grigorik).</strong>
+                Free online. Don't let the "browser" in the title fool you; it's the best explanation of TCP, TLS, HTTP/2, and QUIC behavior I know.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong>Practice with <code>tcpdump</code>, <code>ss</code>, <code>dig</code>, <code>mtr</code>.</strong>
+                In an interview, "I'd <code>tcpdump</code> on the egress interface and look for retransmits" is the kind of answer that lands.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="production-systems">
+      <div class="container--narrow">
+        <div class="section-header">
+          <span class="section-header__number">02</span>
+          <div class="section-header__text">
+            <span class="note-tag note-tag--systems">Production Systems</span>
+            <h2>Production Systems<a class="permalink" href="#production-systems" aria-label="Permalink to this section">#</a></h2>
+          </div>
+        </div>
+
+        <div class="note-entry">
+          <p>
+            Production systems are about what survives contact with reality: consistency tradeoffs,
+            failure modes, the patterns that keep a service alive when things go sideways. The
+            interview signal here is whether you reason from first principles ("what fails first under
+            load, and what does the failure look like to the caller?") or from buzzwords ("just put a
+            circuit breaker on it").
+          </p>
+          <p>
+            One bias: spend more time on <em>resilience patterns</em> than on system-design checklists.
+            Anyone can list "load balancer, cache, database." Fewer candidates can explain why their
+            retry policy needs jitter, why their write path needs idempotency keys, or why their cache
+            invalidation strategy is going to bite them at 3 AM.
+          </p>
+
+          <h3>Core reading</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://dataintensive.net/" target="_blank" rel="noopener noreferrer">Designing Data-Intensive Applications</a> (Kleppmann, 2nd ed. updates in flight).</strong>
+                If you read one book on this list, this is the one. Replication, partitioning, consistency, batch vs. stream. Every chapter shows up in production design questions.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://pragprog.com/titles/mnee2/release-it-second-edition/" target="_blank" rel="noopener noreferrer">Release It!, 2nd ed.</a> (Michael Nygard).</strong>
+                The book on resilience patterns. Timeouts, circuit breakers, bulkheads, idempotency. Older but the chapters on stability antipatterns age like wine.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://sre.google/books/" target="_blank" rel="noopener noreferrer">Site Reliability Engineering</a> + <a href="https://sre.google/workbook/table-of-contents/" target="_blank" rel="noopener noreferrer">The Site Reliability Workbook</a> (Google).</strong>
+                Free online. The principles chapters are canonical; the case-study chapters (especially "Postmortem Culture" and "Managing Load") are the parts you should actually be able to discuss in an interview.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.databass.dev/" target="_blank" rel="noopener noreferrer">Database Internals</a> (Alex Petrov).</strong>
+                Reads like a sequel to DDIA, with much more on storage engines and replication protocols. Good preparation for any role touching a stateful service.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://jepsen.io/analyses" target="_blank" rel="noopener noreferrer">Jepsen analyses</a> (Kyle Kingsbury).</strong>
+                Pick three from databases you've used. After you've seen a Jepsen report find a serializability bug, you'll never read a vendor's consistency claims the same way again.
+              </span>
+            </li>
+          </ul>
+
+          <h3>Practice and pattern reps</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://github.com/donnemartin/system-design-primer" target="_blank" rel="noopener noreferrer">System Design Primer</a>.</strong>
+                Use it as a checklist of vocabulary, not a script. Reviewers can tell when someone is reciting it.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://martin.kleppmann.com/papers.html" target="_blank" rel="noopener noreferrer">Kleppmann's reading list</a>.</strong>
+                The original papers behind a lot of the textbook material. Read "Dynamo," "Spanner," and "Kafka: a Distributed Messaging System" at minimum.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://aws.amazon.com/builders-library/" target="_blank" rel="noopener noreferrer">Amazon Builders' Library</a>.</strong>
+                Free articles by Amazon principal engineers. "Timeouts, retries, and backoff with jitter" and "Workload isolation using shuffle-sharding" are required reading.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="observability">
+      <div class="container--narrow">
+        <div class="section-header">
+          <span class="section-header__number">03</span>
+          <div class="section-header__text">
+            <span class="note-tag note-tag--observability">Observability</span>
+            <h2>Observability<a class="permalink" href="#observability" aria-label="Permalink to this section">#</a></h2>
+          </div>
+        </div>
+
+        <div class="note-entry">
+          <p>
+            Observability is what separates engineers who guess from engineers who know. The discipline
+            has consolidated hard in the last three years: OpenTelemetry is the floor (production
+            adoption roughly doubled year over year through 2025, and vendor lock-in around metrics is
+            now a deal-breaker for many buyers), SLOs are the lingua franca for "is this thing healthy
+            enough?", and eBPF has gone from niche to mainstream for low-overhead production tracing.
+          </p>
+          <p>
+            For interviews, the signal is whether you can design <em>instrumentation</em> alongside the
+            system, not bolt it on afterwards. "What metric would you alert on, and what's its SLI
+            definition?" is the question to be ready for. "How would you debug this without adding more
+            logs?" is the follow-up.
+          </p>
+
+          <h3>The OpenTelemetry world</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://opentelemetry.io/docs/" target="_blank" rel="noopener noreferrer">OpenTelemetry docs</a>.</strong>
+                Start with the collector and the language SDK for whatever you use most. Understand the data model (resources, attributes, scopes, signals) before the wire format.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.honeycomb.io/blog" target="_blank" rel="noopener noreferrer">Honeycomb blog</a> and <a href="https://charity.wtf/" target="_blank" rel="noopener noreferrer">Charity Majors</a>.</strong>
+                The clearest writing on what "observability" actually means versus traditional monitoring. The arguments for high-cardinality, wide events are foundational.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/" target="_blank" rel="noopener noreferrer">Distributed Systems Observability</a> (Cindy Sridharan).</strong>
+                Free short O'Reilly report. The best ninety-page introduction you'll find.
+              </span>
+            </li>
+          </ul>
+
+          <h3>SLOs &amp; reliability math</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://sre.google/workbook/implementing-slos/" target="_blank" rel="noopener noreferrer">Implementing SLOs</a> (SRE Workbook).</strong>
+                Read this twice. The first time for the mechanics, the second time noticing how often the chapter says "this is a conversation, not a calculation."
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong>Multi-window, multi-burn-rate alerting.</strong>
+                If you can explain why a 1-hour 14.4x burn-rate alert paired with a 6-hour 6x burn-rate alert beats a static "five 9s in the last 5 minutes" alert, you can pass most SRE alerting questions.
+              </span>
+            </li>
+          </ul>
+
+          <h3>eBPF &amp; live production debugging</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.brendangregg.com/bpf-performance-tools-book.html" target="_blank" rel="noopener noreferrer">BPF Performance Tools</a> (Brendan Gregg).</strong>
+                Pair it with practicing <code>bpftrace</code> one-liners on a real Linux box. The mental model alone changes how you think about debugging.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://isovalent.com/learning-resources/" target="_blank" rel="noopener noreferrer">Isovalent learning resources</a>.</strong>
+                Free eBPF and Cilium tutorials. The "Getting started with eBPF" lab is the fastest hands-on path.
+              </span>
+            </li>
+          </ul>
+
+          <h3>Incident response</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://response.pagerduty.com/" target="_blank" rel="noopener noreferrer">PagerDuty Incident Response</a>.</strong>
+                Public, opinionated playbook. Read it once; reread the postmortem sections before any leveling interview.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.learningfromincidents.io/" target="_blank" rel="noopener noreferrer">Learning From Incidents</a>.</strong>
+                The community pushing past "five whys" toward genuine learning. "How Complex Systems Fail" by Richard Cook is the foundational essay.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="platform-engineering">
+      <div class="container--narrow">
+        <div class="section-header">
+          <span class="section-header__number">04</span>
+          <div class="section-header__text">
+            <span class="note-tag note-tag--platform">Platform Engineering</span>
+            <h2>Platform Engineering<a class="permalink" href="#platform-engineering" aria-label="Permalink to this section">#</a></h2>
+          </div>
+        </div>
+
+        <div class="note-entry">
+          <p>
+            SRE has bifurcated. Half the role is still on-call and reliability work; the other half is
+            "build the paved road that lets product teams ship safely without your help." That second
+            half has a name now (Platform Engineering) and a recognizable shape: Kubernetes as the
+            substrate, GitOps as the delivery model, internal developer platforms as the product, and
+            cost control as a first-class concern.
+          </p>
+          <p>
+            The interview signal here is whether you can talk about <em>tradeoffs</em>. Anyone can list
+            "we use ArgoCD." Fewer can articulate why they chose ArgoCD over Flux, what they gave up,
+            and what they'd do differently next time. Same for service meshes: knowing when not to
+            adopt one is more valuable than knowing how to install Istio.
+          </p>
+
+          <h3>Kubernetes, beyond the basics</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://github.com/kelseyhightower/kubernetes-the-hard-way" target="_blank" rel="noopener noreferrer">Kubernetes the Hard Way</a> (Kelsey Hightower).</strong>
+                Still the best one-weekend project for actually understanding how a cluster fits together. Do it on bare cloud VMs, not Minikube.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.manning.com/books/platform-engineering-on-kubernetes" target="_blank" rel="noopener noreferrer">Platform Engineering on Kubernetes</a> (Mauricio Salatino).</strong>
+                The right book if you want to think in terms of building a developer-facing platform on top of K8s rather than just running it.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong>Operators &amp; CRDs.</strong>
+                Build a tiny operator with <a href="https://book.kubebuilder.io/" target="_blank" rel="noopener noreferrer">Kubebuilder</a>. Even a 50-line controller teaches you more about the K8s API than weeks of <code>kubectl</code>.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://landscape.cncf.io/" target="_blank" rel="noopener noreferrer">CNCF Landscape</a>.</strong>
+                Not for memorization. Use it once to see the shape of what exists, and as a reference when an interviewer name-drops something.
+              </span>
+            </li>
+          </ul>
+
+          <h3>GitOps, CI/CD, supply chain</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://argo-cd.readthedocs.io/" target="_blank" rel="noopener noreferrer">ArgoCD</a> or <a href="https://fluxcd.io/" target="_blank" rel="noopener noreferrer">Flux</a>.</strong>
+                Pick one, deploy a real app with it, then read the docs for the other and form opinions on the differences.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://slsa.dev/" target="_blank" rel="noopener noreferrer">SLSA</a> + <a href="https://www.sigstore.dev/" target="_blank" rel="noopener noreferrer">Sigstore</a>.</strong>
+                Supply chain security has moved from "nice to have" to "required by procurement." Understand provenance, attestations, and how artifacts get signed end to end.
+              </span>
+            </li>
+          </ul>
+
+          <h3>Infrastructure as code</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong>Terraform or Pulumi or OpenTofu.</strong>
+                The choice matters less than your fluency with state management, module composition, and how you'd review someone else's IaC PR.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.oreilly.com/library/view/infrastructure-as-code/9781098114664/" target="_blank" rel="noopener noreferrer">Infrastructure as Code, 3rd ed.</a> (Kief Morris).</strong>
+                Tool-agnostic principles, which is what you actually need once you've outgrown copy-pasting tutorials.
+              </span>
+            </li>
+          </ul>
+
+          <h3>FinOps</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.finops.org/framework/" target="_blank" rel="noopener noreferrer">FinOps Foundation framework</a>.</strong>
+                The shared vocabulary. Once GPUs entered the picture, cost attribution and right-sizing stopped being optional skills for senior SREs.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.oreilly.com/library/view/container-security/9781492056690/" target="_blank" rel="noopener noreferrer">Container Security</a> (Liz Rice).</strong>
+                Not strictly FinOps but adjacent: knowing what's running where and with what privileges is the prerequisite to knowing what you can safely turn off.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="ai-ml-ops">
+      <div class="container--narrow">
+        <div class="section-header">
+          <span class="section-header__number">05</span>
+          <div class="section-header__text">
+            <span class="note-tag note-tag--ai">AI &amp; ML Ops</span>
+            <h2>AI &amp; ML Ops<a class="permalink" href="#ai-ml-ops" aria-label="Permalink to this section">#</a></h2>
+          </div>
+        </div>
+
+        <div class="note-entry">
+          <p>
+            This is the section I rewrote from scratch. Two years ago "AI for SRE" meant knowing how to
+            call an LLM API and maybe explaining what a vector database was. That bar is now far too
+            low. The reality is that SRE owns serving, observability, cost, and reliability for AI
+            workloads in most organizations that ship them. The skill gap here is the biggest hiring
+            lever in the field in 2026, and the candidates who close it stand out immediately.
+          </p>
+          <p>
+            The shape of this skill set: you understand <em>inference serving</em> well enough to debug
+            a vLLM pod that's dropping tokens; you can read an <em>OpenTelemetry GenAI trace</em> and
+            tell whether your retrieval step or your model step is the bottleneck; you know how
+            <em>GPU scheduling</em> on Kubernetes actually works when the cluster has heterogeneous
+            hardware; you can design <em>evals</em> for an agent system instead of waving your hands
+            about "hallucinations"; and you treat <em>prompt injection</em> with the same seriousness
+            you treat SQL injection.
+          </p>
+
+          <h3>LLM inference serving</h3>
+          <p>
+            vLLM is the operational default for self-hosted inference. The two ideas to internalize:
+            <strong>PagedAttention</strong> (the KV cache is paged like virtual memory, which is why
+            fragmentation drops from roughly 30% to under 2% and throughput jumps several-fold) and
+            <strong>continuous batching</strong> (requests join and leave the batch every iteration
+            instead of waiting for a full batch to complete). If you understand those two, you can
+            reason about most of the metrics you'll see in production.
+          </p>
+          <p>
+            The metrics that matter operationally: time-to-first-token (TTFT), inter-token latency
+            (ITL), <code>vllm:num_requests_waiting</code> (queue depth), <code>vllm:gpu_cache_usage</code>
+            (how full the paged KV cache is), and tokens per second per GPU. p99 TTFT on H100s under
+            real load is typically in the low hundreds of milliseconds; if you're seeing seconds,
+            something is wrong with batching or memory.
+          </p>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://docs.vllm.ai/" target="_blank" rel="noopener noreferrer">vLLM documentation</a>.</strong>
+                Start with the architecture page and the production-deployment guide. The <a href="https://blog.vllm.ai/" target="_blank" rel="noopener noreferrer">vLLM blog</a> has deep posts on PagedAttention and disaggregated prefill/decode.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong>Know the alternatives.</strong> TensorRT-LLM (highest throughput on NVIDIA hardware, painful to operate), SGLang (rising fast, especially for structured output), llama.cpp (the right answer when "ship to a laptop" is the requirement), TGI from Hugging Face (less common in 2026 but you'll meet it).
+              </span>
+            </li>
+          </ul>
+
+          <h3>GPU operations on Kubernetes</h3>
+          <p>
+            The default NVIDIA device plugin gives you whole-GPU allocation, which is wasteful for
+            anything except the largest models. The toolkit to know: <strong>MIG</strong>
+            (Multi-Instance GPU, hardware partitioning on A100/H100), <strong>MPS</strong> (Multi-Process
+            Service, software-level GPU sharing), and time-slicing (lowest isolation, fine for dev).
+            On top of that, the <a href="https://github.com/NVIDIA/KAI-Scheduler" target="_blank" rel="noopener noreferrer">NVIDIA KAI Scheduler</a> (open-sourced in 2025) brings fractional GPU
+            allocation, topology-aware placement, and gang scheduling to Kubernetes. Real workloads
+            have moved utilization from the 10 to 15% range up to 35 to 40% with proper scheduling.
+          </p>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://docs.nvidia.com/datacenter/cloud-native/" target="_blank" rel="noopener noreferrer">NVIDIA Cloud Native docs</a>.</strong>
+                Device plugin, GPU operator, MIG configuration. The reference material the rest of the ecosystem assumes you've read.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://github.com/NVIDIA/KAI-Scheduler" target="_blank" rel="noopener noreferrer">KAI Scheduler</a> (and the academic <a href="https://arxiv.org/abs/2104.06432" target="_blank" rel="noopener noreferrer">"Gang Scheduling for Deep Learning"</a> background).</strong>
+                Fractional GPUs, gang admission, hierarchical queues. Even if you use a different scheduler, the concepts apply.
+              </span>
+            </li>
+          </ul>
+
+          <h3>LLM observability (the 2026 standard)</h3>
+          <p>
+            The OpenTelemetry community shipped <a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/" target="_blank" rel="noopener noreferrer">GenAI semantic conventions</a>
+            that are now the lingua franca. Spans are
+            <code>invoke_agent</code> at the top, <code>chat</code> for each LLM call, and
+            <code>execute_tool</code> for tool invocations. Attributes capture model name, token
+            counts (<code>gen_ai.usage.input_tokens</code>, <code>gen_ai.usage.output_tokens</code>),
+            finish reason, and optionally the full prompt and completion when you've opted into that.
+            Cost falls out of the token counts multiplied by per-model pricing. Every major
+            observability vendor now ships native support.
+          </p>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/" target="_blank" rel="noopener noreferrer">OpenTelemetry GenAI semantic conventions</a>.</strong>
+                Read the spec once. It's short, and it's what every framework's instrumentation now emits.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.elastic.co/blog/2026-observability-trends-generative-ai-opentelemetry" target="_blank" rel="noopener noreferrer">"Observability Trends for 2026: GenAI and OpenTelemetry"</a> (Elastic).</strong>
+                Concise industry snapshot: who's adopting what, where the gaps are.
+              </span>
+            </li>
+          </ul>
+
+          <h3>RAG &amp; vector databases</h3>
+          <p>
+            The interesting questions are no longer "what is RAG" but "what's your retrieval eval
+            strategy?" and "why pgvector instead of a dedicated vector DB?" The honest answer for many
+            workloads is that Postgres + pgvector is enough until it isn't, and the discipline of
+            measuring retrieval quality (NDCG, MRR, hit-rate on a held-out eval set) matters far more
+            than which vector store you picked.
+          </p>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://github.com/pgvector/pgvector" target="_blank" rel="noopener noreferrer">pgvector</a> documentation.</strong>
+                The defaults are surprisingly good. Understand HNSW vs. IVFFlat indexes before you reach for something fancier.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://github.com/explodinggradients/ragas" target="_blank" rel="noopener noreferrer">Ragas</a> for RAG evals.</strong>
+                Faithfulness, answer relevance, context precision. The discipline of measuring is half the value.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong>Embedding model choice is a real tradeoff.</strong> OpenAI's <code>text-embedding-3</code> is the easy default; local models like <code>bge-large</code> or <code>nomic-embed-text</code> are competitive and cheaper. Benchmark with your own corpus, not the leaderboards.
+              </span>
+            </li>
+          </ul>
+
+          <h3>Agent systems &amp; evals</h3>
+          <p>
+            Agent reliability is mostly the discipline of <em>evals</em>: a labeled set of tool-use
+            scenarios, a harness that runs them on every change, and clear pass/fail criteria. The
+            failure modes you need to handle gracefully are well-catalogued by now: hallucinated tool
+            calls, invalid parameters, infinite retry loops, tools that succeed silently with the
+            wrong result.
+          </p>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://docs.smith.langchain.com/" target="_blank" rel="noopener noreferrer">LangSmith</a> or <a href="https://docs.braintrust.dev/" target="_blank" rel="noopener noreferrer">Braintrust</a>.</strong>
+                Hosted eval platforms. Pick one to learn the shape of the workflow; the patterns transfer.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://github.com/anthropics/anthropic-cookbook" target="_blank" rel="noopener noreferrer">Anthropic cookbook</a> and <a href="https://github.com/openai/openai-cookbook" target="_blank" rel="noopener noreferrer">OpenAI cookbook</a>.</strong>
+                Concrete patterns for tool use, structured output, and evals. Read them as collections of working examples, not as gospel.
+              </span>
+            </li>
+          </ul>
+
+          <h3>Safety, guardrails, prompt injection</h3>
+          <p>
+            Prompt injection is the new SQL injection: a well-understood attack class with imperfect
+            defenses. Defense in depth is the only honest approach: input filtering, output
+            validation, per-user rate limits on both requests and tokens, sandboxed tool execution,
+            and a logging story that makes detection possible after the fact.
+          </p>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" rel="noopener noreferrer">OWASP Top 10 for LLM Applications</a>.</strong>
+                The shared vocabulary for this problem space. Prompt injection, insecure output handling, sensitive information disclosure.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://huggingface.co/meta-llama/Llama-Guard-3-8B" target="_blank" rel="noopener noreferrer">Llama Guard</a> and similar moderation models.</strong>
+                Useful as one layer; not a complete defense on their own.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://simonwillison.net/tags/prompt-injection/" target="_blank" rel="noopener noreferrer">Simon Willison on prompt injection</a>.</strong>
+                Years of clear-eyed writing on what works, what doesn't, and what's still an open problem.
+              </span>
+            </li>
+          </ul>
+
+          <h3>The bigger picture</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.oreilly.com/library/view/ai-engineering/9781098166298/" target="_blank" rel="noopener noreferrer">AI Engineering</a> (Chip Huyen).</strong>
+                The current best book-length treatment of LLM applications from a systems perspective. Read it cover to cover; it's worth the time.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://huggingface.co/blog" target="_blank" rel="noopener noreferrer">Hugging Face blog</a>.</strong>
+                The pulse of what's actually shipping in open-source ML. Their deployment posts are particularly good.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="interview-strategy">
+      <div class="container--narrow">
+        <div class="section-header">
+          <span class="section-header__number">06</span>
+          <div class="section-header__text">
+            <span class="note-tag note-tag--career">Interview Strategy</span>
+            <h2>Interview Strategy<a class="permalink" href="#interview-strategy" aria-label="Permalink to this section">#</a></h2>
+          </div>
+        </div>
+
+        <div class="note-entry">
+          <p>
+            SRE and PE interviews are not LeetCode loops. The strongest signal is operational
+            thinking: do you reach for the right metric, the right tool, the right question? A
+            mid-level loop typically has a coding round (more "parse this log file" than "invert a
+            binary tree"), a system design round with an operational lens (capacity, SLOs, failure
+            modes), a debugging or troubleshooting round on a Linux box or in a small simulated
+            system, and a behavioral round that usually centers on a recent incident.
+          </p>
+          <p>
+            Level distinguishes itself in the behavioral and design rounds, not the coding round. At
+            senior, you should be able to walk through an incident with a clear narrative arc:
+            detection, response, recovery, what you'd change, what you learned, what surprised you.
+            At staff and above, you should be able to describe systems you've shaped, not just
+            operated, and the tradeoffs you steered through.
+          </p>
+
+          <h3>Prep resources</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://github.com/mxssl/sre-interview-prep-guide" target="_blank" rel="noopener noreferrer">SRE Interview Prep Guide</a> (mxssl).</strong>
+                Comprehensive, well-maintained checklist. Useful for spotting your own blind spots, less useful as a sequential study plan.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://www.splunk.com/en_us/blog/learn/sre-interview-questions.html" target="_blank" rel="noopener noreferrer">Splunk's SRE interview questions</a>.</strong>
+                Realistic prompts. Practice answering aloud; the difference between knowing and explaining is large.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://bytebytego.com/" target="_blank" rel="noopener noreferrer">System Design Interview vol. 1 &amp; 2</a> (Alex Xu).</strong>
+                Worthwhile for vocabulary and pacing. Treat the answers as one possible take, not the answer.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong><a href="https://interviewing.io/" target="_blank" rel="noopener noreferrer">Interviewing.io</a> or <a href="https://www.pramp.com/" target="_blank" rel="noopener noreferrer">Pramp</a>.</strong>
+                Mock interviews with real engineers. Five mocks will teach you more about your gaps than fifty hours of reading.
+              </span>
+            </li>
+          </ul>
+
+          <h3>What to practice out loud</h3>
+          <ul class="tips-list">
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong>Your incident story.</strong> Pick one. Be able to tell it in two minutes and in ten. Practice both.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong>"Walk me through a slow request."</strong> From client TCP handshake through DNS, TLS, load balancer, application, database, and back. Know where to look at each layer.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong>"Design an SLO for this service."</strong> Be ready to define an SLI, pick a target, and discuss how you'd alert on the burn rate.
+              </span>
+            </li>
+            <li>
+              <span class="tips-list__icon">&rarr;</span>
+              <span class="tips-list__text">
+                <strong>For AI-touching roles: "We're serving a Llama 3 70B model and p99 TTFT just doubled. What do you check first?"</strong> If you have an answer ready, you're in a small group.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__logo">Eirik</span>
+      <ul class="footer__links">
+        <li><a href="travel/index.html">Travel</a></li>
+        <li><a href="notes.html">Notes</a></li>
+        <li><a href="study.html">Study</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('.permalink');
+      if (!link) return;
+      e.preventDefault();
+      var hash = link.getAttribute('href');
+      history.replaceState(null, '', hash);
+      var target = document.querySelector(hash);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(location.href).catch(function () {});
+      }
+      link.classList.add('permalink--copied');
+      setTimeout(function () { link.classList.remove('permalink--copied'); }, 1400);
+    });
+  </script>
+
+</body>
+</html>
