@@ -505,6 +505,7 @@ h2:hover .permalink,
 .place-card:has(.tag--seafood)  { border-left-color: #1a6b78; }
 .place-card:has(.tag--sight)    { border-left-color: #a0246b; }
 .place-card:has(.tag--region)   { border-left-color: #4a7c1a; }
+.place-card:has(.tag--hometown) { border-left-color: #a8562a; }
 
 .place-card__tag {
   display: inline-block;
@@ -554,6 +555,7 @@ h2:hover .permalink,
 .tag--seafood  { --tag-bg: #e8f6f8; --tag-color: #1a6b78; }
 .tag--sight    { --tag-bg: #fde8f5; --tag-color: #a0246b; }
 .tag--region   { --tag-bg: #f0f8e8; --tag-color: #4a7c1a; }
+.tag--hometown { --tag-bg: #fbeee4; --tag-color: #a8562a; }
 
 /* ============================================
    INTRO SECTION
